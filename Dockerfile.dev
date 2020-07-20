@@ -1,0 +1,21 @@
+# 
+
+# base image
+FROM node:alpine
+
+# set working dir (will be created if doesn't exist)
+# default is "/"
+WORKDIR /app
+
+# copy json file
+COPY package.json .
+
+# install dependencies
+RUN npm install
+
+# copy files from current dir to CWD inside container
+# copying is split in multiple steps so changing cfg files won't cause unnecessary rebuild of previous step
+COPY . .
+
+# startup command
+CMD ["npm", "run", "start"]

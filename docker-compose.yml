@@ -1,0 +1,33 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      # <host_port>:<container_port>
+      - "3000:3000"
+    # same as "run -it"
+    stdin_open: true
+    volumes:
+      # "exclude" the container's /app dir 
+      # so next directive doesn't overwrite it
+      - /app/node_modules
+      # map local CWD to dir inside container
+      # <host_dir>:<container_dir>
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # same as "run -it"
+    stdin_open: true
+    volumes:
+      # "exclude" the container's /app dir 
+      # so next directive doesn't overwrite it
+      - /app/node_modules
+      # map local CWD to dir inside container
+      # <host_dir>:<container_dir>
+      - .:/app
+    # overwrite default container command
+    command: ["npm", "run", "test"]
