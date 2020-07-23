@@ -30,7 +30,7 @@ FROM nginx
 
 # expose port for AWS beanstalk
 # this option will only have effect in beanstalk
-#EXPOSE 80
+EXPOSE 80
 
 # copy from "builder" phase
 #COPY --from=builder /app/build /usr/share/nginx/html
