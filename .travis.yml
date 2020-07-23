@@ -11,3 +11,17 @@ before_install:
 # CI option added for test to exit on completion instead of waiting for input
 script:
   - docker run -e CI=true stan56/docker-react npm run test
+
+# deploy to AWS Beanstalk
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-1-508593366803"
+  bucket_path:  "docker-react"
+  # specify GitHub branch to deploy from
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
